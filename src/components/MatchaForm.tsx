@@ -303,7 +303,7 @@ export default function MatchaForm() {
         transition={{ duration: 0.5 }}
         style={{ textAlign: 'center', width: '100%' }}
       >
-        <h2 style={styles.thankYou}>thank you for joining 🍵</h2>
+        <h2 style={styles.thankYou}>lets gooooooo!!!</h2>
         <motion.button
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
