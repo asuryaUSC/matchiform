@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import confetti from 'canvas-confetti';
 
 const baseStyles = {
   form: {
@@ -206,6 +207,19 @@ export default function MatchaForm() {
 
       if (res.ok) {
         setSubmitted(true);
+        // Trigger confetti after a small delay to ensure animation is visible after component renders
+        setTimeout(() => {
+          confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 },
+            disableForReducedMotion: true,
+            gravity: 1.2, // Fall faster
+            scalar: 0.8, // Smaller confetti
+            ticks: 200, // Short duration (about 1-2 seconds)
+            colors: ['#b1dd9e', '#a3cf90', '#90c17e', '#80b46c', '#72a45e'], // Different shades of green to match the theme
+          });
+        }, 300);
       } else {
         alert("Something went wrong. Please try again.");
       }
