@@ -180,40 +180,10 @@ export default function MatchaForm() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const webhookUrl = "https://script.google.com/macros/s/AKfycbztwh1iT22I4u0XTcrzZE4ZIVft2tt9wBWkf9ry2klwGvCut2LH-zrVroVQUDTL46OB/exec";
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    if (!emailRegex.test(formData.email)) {
-      alert("Please enter a valid email address.");
-      return;
-    }
-
-    const payload = {
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      email: formData.email,
-      milk: formData.milkPreference,
-    };
-
-    try {
-      const res = await fetch(webhookUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      if (res.ok) {
-        setSubmitted(true); // show thank-you screen
-      } else {
-        alert("Something went wrong. Please try again.");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Network error. Please try again later.");
-    }
+    setSubmitted(true);
+    console.log(formData);
   };
 
   const handleSubmitAnother = () => {
