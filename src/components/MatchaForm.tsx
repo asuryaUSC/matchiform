@@ -117,15 +117,47 @@ const getResponsiveStyles = () => {
   if (typeof window !== 'undefined') {
     const width = window.innerWidth;
     
-    if (width < 360) {
-      // Extra small screens (iPhone SE, etc.)
+    if (width < 480) {
+      // Mobile screens (iPhone 12/SE sizes)
       return {
+        form: {
+          gap: '16px', // Reduced gap between form elements
+        },
+        formGroup: {
+          marginBottom: '12px', // Reduce margin between form groups
+        },
+        milkPreferenceContainer: {
+          marginBottom: '16px', // Reduced bottom margin
+        },
         milkButton: {
-          padding: '10px 12px',
+          padding: '8px 12px', // Smaller padding on milk buttons
           fontSize: '13px',
         },
         submitButton: {
-          padding: '12px 0',
+          padding: '12px 0', // Reduced padding on submit button
+          marginTop: '4px', // Reduced top margin
+        },
+      };
+    }
+    
+    if (width < 360) {
+      // Extra small screens
+      return {
+        form: {
+          gap: '12px', // Even smaller gap for tiny screens
+        },
+        formGroup: {
+          marginBottom: '10px', // Further reduced margin
+        },
+        milkPreferenceContainer: {
+          marginBottom: '14px', // Further reduced margin
+        },
+        milkButton: {
+          padding: '7px 10px', // Minimized padding
+          fontSize: '12px',
+        },
+        submitButton: {
+          padding: '10px 0', // Minimized padding
         },
       };
     }
@@ -150,6 +182,18 @@ export default function MatchaForm() {
     setStyles({
       ...baseStyles,
       ...(responsiveStyles as any),
+      form: {
+        ...baseStyles.form,
+        ...(responsiveStyles as any)?.form,
+      },
+      formGroup: {
+        ...baseStyles.formGroup,
+        ...(responsiveStyles as any)?.formGroup,
+      },
+      milkPreferenceContainer: {
+        ...baseStyles.milkPreferenceContainer,
+        ...(responsiveStyles as any)?.milkPreferenceContainer,
+      },
       milkButton: {
         ...baseStyles.milkButton,
         ...(responsiveStyles as any)?.milkButton,
@@ -166,6 +210,18 @@ export default function MatchaForm() {
       setStyles({
         ...baseStyles,
         ...(responsiveStyles as any),
+        form: {
+          ...baseStyles.form,
+          ...(responsiveStyles as any)?.form,
+        },
+        formGroup: {
+          ...baseStyles.formGroup,
+          ...(responsiveStyles as any)?.formGroup,
+        },
+        milkPreferenceContainer: {
+          ...baseStyles.milkPreferenceContainer,
+          ...(responsiveStyles as any)?.milkPreferenceContainer,
+        },
         milkButton: {
           ...baseStyles.milkButton,
           ...(responsiveStyles as any)?.milkButton,
@@ -323,7 +379,7 @@ export default function MatchaForm() {
               ...(formData.milkPreference === 'oat' ? styles.milkButtonActive : {})
             }}
           >
-            Oat Milk 🧋
+            oat milk 🧋
           </button>
           <button
             type="button"
@@ -333,7 +389,7 @@ export default function MatchaForm() {
               ...(formData.milkPreference === 'whole' ? styles.milkButtonActive : {})
             }}
           >
-            Whole Milk 🥛
+            whole milk 🥛
           </button>
         </div>
       </div>
