@@ -4,6 +4,10 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaInstagram, FaTiktok } from 'react-icons/fa';
 
+interface SocialLinksProps {
+  screenHeight: number | null;
+}
+
 const baseStyles = {
   container: {
     display: 'flex',
@@ -26,22 +30,108 @@ const baseStyles = {
   },
 };
 
-export default function SocialLinks() {
+export default function SocialLinks({ screenHeight }: SocialLinksProps) {
   const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
   const [styles, setStyles] = useState(baseStyles);
 
   useEffect(() => {
-    // No specific responsive styles needed for this component
-    // But the structure is in place if needed in the future
-    setStyles(baseStyles);
+    // Apply responsive styles based on screen height
+    let updatedStyles = { ...baseStyles };
+    
+    if (screenHeight && screenHeight < 800) {
+      updatedStyles = {
+        ...updatedStyles,
+        container: {
+          ...updatedStyles.container,
+          marginTop: '16px',
+          gap: '12px',
+        },
+        iconLink: {
+          ...updatedStyles.iconLink,
+          padding: '6px',
+        }
+      };
+    }
+    
+    if (screenHeight && screenHeight < 700) {
+      updatedStyles = {
+        ...updatedStyles,
+        container: {
+          ...updatedStyles.container,
+          marginTop: '12px',
+          gap: '10px',
+        },
+        iconLink: {
+          ...updatedStyles.iconLink,
+          padding: '4px',
+        }
+      };
+    }
+    
+    if (screenHeight && screenHeight < 600) {
+      updatedStyles = {
+        ...updatedStyles,
+        container: {
+          ...updatedStyles.container,
+          marginTop: '8px',
+          gap: '8px',
+        }
+      };
+    }
+    
+    setStyles(updatedStyles);
     
     const handleResize = () => {
-      setStyles(baseStyles);
+      let newStyles = { ...baseStyles };
+      const currentHeight = window.innerHeight;
+      
+      if (currentHeight < 800) {
+        newStyles = {
+          ...newStyles,
+          container: {
+            ...newStyles.container,
+            marginTop: '16px',
+            gap: '12px',
+          },
+          iconLink: {
+            ...newStyles.iconLink,
+            padding: '6px',
+          }
+        };
+      }
+      
+      if (currentHeight < 700) {
+        newStyles = {
+          ...newStyles,
+          container: {
+            ...newStyles.container,
+            marginTop: '12px',
+            gap: '10px',
+          },
+          iconLink: {
+            ...newStyles.iconLink,
+            padding: '4px',
+          }
+        };
+      }
+      
+      if (currentHeight < 600) {
+        newStyles = {
+          ...newStyles,
+          container: {
+            ...newStyles.container,
+            marginTop: '8px',
+            gap: '8px',
+          }
+        };
+      }
+      
+      setStyles(newStyles);
     };
     
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [screenHeight]);
 
   return (
     <motion.div 

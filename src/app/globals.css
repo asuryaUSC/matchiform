@@ -40,6 +40,27 @@ button {
   }
 }
 
+/* Height-based responsive adjustments */
+@media screen and (max-height: 800px) {
+  html {
+    font-size: 95%; /* Reduce base font size by 5% */
+  }
+  
+  input, button, label, h1, h2, h3 {
+    font-size: 95%; /* Proportionally reduce element fonts */
+  }
+}
+
+@media screen and (max-height: 700px) {
+  html {
+    font-size: 90%; /* Reduce base font size by 10% */
+  }
+  
+  input, button, label, h1, h2, h3 {
+    font-size: 90%; /* Proportionally reduce element fonts */
+  }
+}
+
 /* Fix iOS text size adjust */
 @media screen and (max-width: 480px) {
   input, button, select, textarea {

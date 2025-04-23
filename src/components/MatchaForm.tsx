@@ -11,7 +11,7 @@ const baseStyles = {
     display: 'flex',
     flexDirection: 'column' as const,
     gap: '24px',
-    marginTop: '24px',
+    marginTop: '16px',
     boxSizing: 'border-box' as const,
   },
   formGroup: {
@@ -116,10 +116,13 @@ const baseStyles = {
 const getResponsiveStyles = () => {
   if (typeof window !== 'undefined') {
     const width = window.innerWidth;
+    const height = window.innerHeight;
+    let styles = {};
     
+    // Width-based mobile adjustments
     if (width < 480) {
-      // Mobile screens (iPhone 12/SE sizes)
-      return {
+      styles = {
+        ...styles,
         form: {
           gap: '16px', // Reduced gap between form elements
         },
@@ -140,27 +143,111 @@ const getResponsiveStyles = () => {
       };
     }
     
-    if (width < 360) {
-      // Extra small screens
-      return {
+    // Height-based adjustments for laptop screens (targeting 1280x800)
+    if (height < 800) {
+      styles = {
+        ...styles,
         form: {
-          gap: '12px', // Even smaller gap for tiny screens
+          ...(styles as any)?.form,
+          gap: '10px', // Further reduced gap
+          marginTop: '8px', // Minimal top margin
         },
         formGroup: {
-          marginBottom: '10px', // Further reduced margin
+          ...(styles as any)?.formGroup,
+          marginBottom: '8px', // Reduced margin
+        },
+        input: {
+          ...(styles as any)?.input,
+          padding: '8px 2px', // Reduced padding
         },
         milkPreferenceContainer: {
-          marginBottom: '14px', // Further reduced margin
+          ...(styles as any)?.milkPreferenceContainer,
+          marginBottom: '8px', // Further reduced margin
         },
-        milkButton: {
-          padding: '7px 10px', // Minimized padding
-          fontSize: '12px',
+        milkPreferenceLabel: {
+          ...(styles as any)?.milkPreferenceLabel,
+          marginBottom: '6px', // Reduced margin
         },
         submitButton: {
-          padding: '10px 0', // Minimized padding
+          ...(styles as any)?.submitButton,
+          padding: '10px 0', // Slightly reduced padding
+          marginTop: '2px', // Minimal top margin
+        },
+        thankYou: {
+          ...(styles as any)?.thankYou,
+          marginBottom: '16px', // Reduced margin
         },
       };
     }
+    
+    // Height-based adjustments for small laptops
+    if (height < 700) {
+      styles = {
+        ...styles,
+        form: {
+          ...(styles as any)?.form,
+          gap: '8px', // Minimal gap
+          marginTop: '6px',
+        },
+        formGroup: {
+          ...(styles as any)?.formGroup,
+          marginBottom: '6px',
+        },
+        input: {
+          ...(styles as any)?.input,
+          padding: '6px 2px',
+        },
+        milkPreferenceContainer: {
+          ...(styles as any)?.milkPreferenceContainer,
+          marginBottom: '6px',
+        },
+        milkPreferenceLabel: {
+          ...(styles as any)?.milkPreferenceLabel,
+          marginBottom: '4px',
+        },
+        milkButton: {
+          ...(styles as any)?.milkButton,
+          padding: '8px 10px',
+        },
+        submitButton: {
+          ...(styles as any)?.submitButton,
+          padding: '8px 0',
+          marginTop: '2px',
+        },
+      };
+    }
+    
+    // Extra small screens
+    if (width < 360 || height < 600) {
+      styles = {
+        ...styles,
+        form: {
+          ...(styles as any)?.form,
+          gap: '6px',
+          marginTop: '4px',
+        },
+        formGroup: {
+          ...(styles as any)?.formGroup,
+          marginBottom: '4px',
+        },
+        milkPreferenceContainer: {
+          ...(styles as any)?.milkPreferenceContainer,
+          marginBottom: '4px',
+        },
+        milkButton: {
+          ...(styles as any)?.milkButton,
+          padding: '6px 8px', // Minimized but still tap-friendly
+          fontSize: '12px',
+        },
+        submitButton: {
+          ...(styles as any)?.submitButton,
+          padding: '7px 0', // Minimized padding but preserved tap area
+          marginTop: '0px',
+        },
+      };
+    }
+    
+    return styles;
   }
   return {};
 };
